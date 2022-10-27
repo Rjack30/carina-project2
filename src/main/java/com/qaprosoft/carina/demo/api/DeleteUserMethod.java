@@ -30,7 +30,8 @@ import com.qaprosoft.carina.core.foundation.utils.Configuration;
 @SuccessfulHttpStatus(status = HttpResponseStatusType.OK_200)
 public class DeleteUserMethod extends AbstractApiMethodV2 {
 
-    public DeleteUserMethod() {
+    public DeleteUserMethod()
+    {
         replaceUrlPlaceholder("base_url", Configuration.getEnvArg("api_url"));
     }
 }

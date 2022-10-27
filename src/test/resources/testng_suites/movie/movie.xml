@@ -1,0 +1,7 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite verbose="1" name="Carina Demo Tests - Movie-Database" parallel="methods" thread-count="3">
+
+HttpResponse<String> response = Unirest.get("https://movie-database-alternative.p.rapidapi.com/?s=Avengers%20Endgame&r=json&page=1")
+    .header("X-RapidAPI-Key", "609827674emsh31dd137200ac48cp1fcc8djsnc7a731002b8f")
+    .header("X-RapidAPI-Host", "movie-database-alternative.p.rapidapi.com")
+    .asString();

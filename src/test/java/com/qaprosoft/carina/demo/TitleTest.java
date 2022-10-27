@@ -16,32 +16,32 @@ import com.qaprosoft.carina.core.foundation.report.ReportContext;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.webdriver.DriverHelper;
 
-public class AutoDownloadTest implements IAbstractTest {
+public class TitleTest implements IAbstractTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     
     @BeforeSuite()
     public void BeforeAutoDownload() {
-        R.CONFIG.put("auto_download", "true");
-        R.CONFIG.put("auto_screenshot", "false");
+        R.CONFIG.put("Title_download", "true");
+        R.CONFIG.put("Title_screenshot", "false");
     }
 
     @Test()
-    public void getArtifactTest() {
-        String url = "https://www.free-css.com/assets/files/free-css-templates/download/page280/klassy-cafe.zip";
+    public void getTitleTest() {
+        String url = "\"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg";
 
-        LOGGER.info("Artifact's folder: {}", ReportContext.getArtifactsFolder().getAbsolutePath());
+        LOGGER.info("Title's folder: {}", ReportContext.getTitlesFolder().getAbsolutePath());
 
         DriverHelper driverHelper = new DriverHelper(getDriver());
         driverHelper.openURL(url);
         pause(1);
 
-        File file = ReportContext.getArtifact(getDriver(), "klassy-cafe.zip");
-        Assert.assertTrue(file.exists(), "klassy-cafe.zip is not available among downloaded artifacts");
+        File file = ReportContext.getArtifact(getDriver(), "Avengers-Endgame.zip");
+        Assert.assertTrue(file.exists(), "avengers-endgame.zip is not available among movie titles");
     }
     
-    @Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Unable to find artifact:.*")
-    public void getInvalidArtifactTest() {
+    @Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Unable to find title:.*")
+    public void getInvalidTitleTest() {
         String url = "https://www.free-css.com/assets/files/free-css-templates/download/page280/klassy-cafe.zip";
 
         LOGGER.info("Artifact's folder: {}", ReportContext.getArtifactsFolder().getAbsolutePath());
@@ -54,13 +54,13 @@ public class AutoDownloadTest implements IAbstractTest {
    
     
     @Test()
-    public void getArtifactsTest() {
+    public void getTitleTest() {
         String url1 = "https://www.free-css.com/assets/files/free-css-templates/download/page279/tropiko.zip";
         String url2 = "https://www.free-css.com/assets/files/free-css-templates/download/page280/solar.zip";
 
-        R.CONFIG.put("auto_download", "true");
+        R.CONFIG.put("movie_title", "true");
 
-        LOGGER.info("Artifact's folder: {}", ReportContext.getArtifactsFolder().getAbsolutePath());
+        LOGGER.info("Title's folder: {}", ReportContext.getArtifactsFolder().getAbsolutePath());
 
         DriverHelper driverHelper = new DriverHelper(getDriver());
         driverHelper.openURL(url1);
@@ -69,11 +69,11 @@ public class AutoDownloadTest implements IAbstractTest {
 
         
         List<String> fileNames = ReportContext.listArtifacts(getDriver());
-        Assert.assertTrue(fileNames.contains("tropiko.zip"), "tropiko.zip not found");
+        Assert.assertTrue(fileNames.contains("getTitles.zip"), "getTitles.zip not found");
         Assert.assertTrue(fileNames.contains("solar.zip"), "solar.zip not found");
         
         
-        List<File> files = ReportContext.getArtifacts(getDriver(), ".+");
+        List<File> files = ReportContext.getTitles(getDriver(), ".+");
         Assert.assertEquals(files.size(), 2);
         
         files = ReportContext.getArtifacts(getDriver(), "solar.z.+");

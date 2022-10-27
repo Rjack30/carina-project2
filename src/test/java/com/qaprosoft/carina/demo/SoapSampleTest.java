@@ -3,7 +3,7 @@ package com.qaprosoft.carina.demo;
 import com.qaprosoft.apitools.validation.XmlCompareMode;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.demo.soap.AddIntegerMethod;
-import com.qaprosoft.carina.demo.soap.LookupCityMethod;
+import com.qaprosoft.carina.demo.soap.LookupMovieNameMethod;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -25,7 +25,7 @@ public class SoapSampleTest implements IAbstractTest {
 
     @Test
     public void testLookupCity() {
-        LookupCityMethod soap = new LookupCityMethod();
+        LookupMovieNameMethod soap = new LookupMovieNameMethod();
         soap.setProperties("api/soap/soap.properties");
 
         soap.callAPIExpectSuccess();
