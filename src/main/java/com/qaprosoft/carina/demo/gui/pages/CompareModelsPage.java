@@ -62,4 +62,14 @@ public class CompareModelsPage extends AbstractPage {
         }
         return modelSpecs;
     }
+
+    public List<MovieSpecs> compareMovies(String avengers_endgame, String avengers_infinity_war, String s) {
+        return null;
+    }
+
+    public class MovieSpecs {
+        public long wait(Object movieType) {
+            return 0;
+        }
+    }
 }

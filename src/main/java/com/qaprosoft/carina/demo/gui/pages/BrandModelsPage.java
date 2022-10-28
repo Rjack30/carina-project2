@@ -39,4 +39,11 @@ public class BrandModelsPage extends AbstractPage {
         }
         throw new RuntimeException("Unable to open model: " + modelName);
     }
+
+    public MovieInfoPage selectMovie(String avengers_endgame) {
+        return null;
+    }
+
+    private class MovieInfoPage {
+    }
 }

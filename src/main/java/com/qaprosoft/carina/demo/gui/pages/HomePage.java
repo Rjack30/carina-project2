@@ -69,4 +69,8 @@ public class HomePage extends AbstractPage {
     public WeValuePrivacyAd getWeValuePrivacyAd() {
     	return new WeValuePrivacyAd(driver);
     }
+
+    public com.qaprosoft.carina.demo.MovieInfoPage selectMovie(String marvel) {
+        return null;
+    }
 }

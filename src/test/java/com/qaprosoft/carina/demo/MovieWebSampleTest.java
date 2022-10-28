@@ -15,40 +15,33 @@
  */
 package com.qaprosoft.carina.demo;
 
-import java.util.List;
-
+import com.qaprosoft.carina.core.foundation.IAbstractTest;
+import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
+import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
+import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
+import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.NewsItem;
+import com.qaprosoft.carina.demo.gui.pages.*;
+import com.zebrunner.agent.core.annotation.TestLabel;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import com.qaprosoft.carina.core.foundation.IAbstractTest;
-import com.zebrunner.agent.core.annotation.TestLabel;
-import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
-import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
-import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
-import com.qaprosoft.carina.demo.gui.components.FooterMenu;
-import com.qaprosoft.carina.demo.gui.components.NewsItem;
-import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs;
-import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs.SpecType;
-import com.qaprosoft.carina.demo.gui.pages.BrandModelsPage;
-import com.qaprosoft.carina.demo.gui.pages.CompareModelsPage;
-import com.qaprosoft.carina.demo.gui.pages.HomePage;
-import com.qaprosoft.carina.demo.gui.pages.ModelInfoPage;
-import com.qaprosoft.carina.demo.gui.pages.NewsPage;
+import java.util.List;
 
-/**
- * This sample shows how create Web test.
- *
- * @author qpsdemo
- */
-public class WebSampleTest implements IAbstractTest {
+
+public class MovieWebSampleTest implements IAbstractTest {
+    private Object SpecType;
+    private Object ANNOUNCED;
+    private Object object;
+
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P3)
     @TestLabel(name = "feature", value = {"web", "regression"})
-    public void testModelSpecs() {
+    public void testModelSpecs(ModelInfoPage RuntimeInfoPage) {
         // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -59,16 +52,13 @@ public class WebSampleTest implements IAbstractTest {
         
         // Select phone brand
         homePage = new HomePage(getDriver());
-        BrandModelsPage productsPage = homePage.selectBrand("Samsung");
+        MovieInfoPage productsPage = homePage.selectMovie("Marvel");
         // Select phone model
-        ModelInfoPage productInfoPage = productsPage.selectModel("Galaxy A52 5G");
+        MovieInfoPage productInfoPage = productsPage.selectMovie("Avengers Endgame");
         // Verify phone specifications
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(productInfoPage.readDisplay(), "6.5\"", "Invalid display info!");
-        softAssert.assertEquals(productInfoPage.readCamera(), "64MP", "Invalid camera info!");
-        softAssert.assertEquals(productInfoPage.readRam(), "6/8GB RAM", "Invalid ram info!");
-        softAssert.assertEquals(productInfoPage.readBattery(), "4500mAh", "Invalid battery info!");
-        softAssert.assertAll();
+        softAssert.assertEquals(RuntimeInfoPage.readDisplay(), "252.0\"", "Invalid display info!");
+
     }
 
 
@@ -76,7 +66,7 @@ public class WebSampleTest implements IAbstractTest {
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P1)
     @TestLabel(name = "feature", value = {"web", "acceptance"})
-    public void testCompareModels() {
+    public void testCompareMovies() {
         // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -86,12 +76,13 @@ public class WebSampleTest implements IAbstractTest {
         Assert.assertTrue(footerMenu.isUIObjectPresent(2), "Footer menu wasn't found!");
         CompareModelsPage comparePage = footerMenu.openComparePage();
         // Compare 3 models
-        List<ModelSpecs> specs = comparePage.compareModels("Samsung Galaxy J3", "Samsung Galaxy J5", "Samsung Galaxy J7 Pro");
+        List<CompareModelsPage.MovieSpecs> specs = comparePage.compareMovies("Avengers Endgame", "Avengers Infinity War", " The Avengers");
         // Verify model announced dates
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(specs.get(0).readSpec(SpecType.ANNOUNCED), "2016, March 31");
-        softAssert.assertEquals(specs.get(1).readSpec(SpecType.ANNOUNCED), "2015, June 19");
-        softAssert.assertEquals(specs.get(2).readSpec(SpecType.ANNOUNCED), "2017, June");
+        Object MovieType = object;
+        softAssert.assertEquals(specs.get(0).wait(MovieType), "2019, April 26");
+        softAssert.assertEquals(specs.get(1).wait(MovieType), "2018, April 27");
+        softAssert.assertEquals(specs.get(2).wait(MovieType), "2012, May 4");
         softAssert.assertAll();
     }
     
@@ -106,7 +97,7 @@ public class WebSampleTest implements IAbstractTest {
         NewsPage newsPage = homePage.getFooterMenu().openNewsPage();
         Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened!");
         
-        final String searchQ = "iphone";
+        final String searchQ = "dc";
         List<NewsItem> news = newsPage.searchNews(searchQ);
         Assert.assertFalse(CollectionUtils.isEmpty(news), "News not found!");
         SoftAssert softAssert = new SoftAssert();
@@ -118,4 +109,6 @@ public class WebSampleTest implements IAbstractTest {
         softAssert.assertAll();
     }
 
+    private class CompareMoviesPage {
+    }
 }
