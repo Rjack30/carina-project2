@@ -54,7 +54,7 @@ public class TitleTest implements IAbstractTest {
    
     
     @Test()
-    public void getTitleTest() {
+    public void TitleTest() {
         String url1 = "https://www.free-css.com/assets/files/free-css-templates/download/page279/tropiko.zip";
         String url2 = "https://www.free-css.com/assets/files/free-css-templates/download/page280/solar.zip";
 

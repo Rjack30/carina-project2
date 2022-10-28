@@ -1,7 +1,7 @@
 package com.qaprosoft.carina.demo
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest
-import com.qaprosoft.carina.core.foundation.metascore.annotations.XlsDataSourceParameters
+import com.qaprosoft.carina.core.foundation.metascoreratings.annotations.XlsMetaScoreRatingTest
 import com.qaprosoft.carina.core.foundation.report.testrail.TestRailCases
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority
@@ -15,7 +15,7 @@ class MetaScoreRatingTest implements IAbstractTest {
         @Test(dataProvider = "MetaScore")
         @MethodOwner(owner = "qpsdemo")
         @TestRailCases(testCasesId = "1")
-        @XlsDataSourceParameters(path = "xls/demo.xlsx", sheet = "Calculator", dsUid = "TUID", dsArgs = "a,b,c", testRailColumn = "a")
+        @XlsMetaScoreRatingTest (path = "xls/demo.xlsx", sheet = "Calculator", dsUid = "TUID", dsArgs = "a,b,c", testRailColumn = "a")
         void testSumOperation(String a, String b, String c) {
             int actual = Integer.valueOf(a) + Integer.valueOf(b)
             int expected = Integer.valueOf(c)
@@ -26,7 +26,7 @@ class MetaScoreRatingTest implements IAbstractTest {
         @Test(dataProvider = "MetaScore")
         @MethodOwner(owner = "qpsdemo")
         @TestRailCases(testCasesId = "1")
-        @XlsDataSourceParameters(path = "xls/demo.xlsx", sheet = "Calculator", dsUid = "TUID", testRailColumn = "a")
+        @XlsMetaScoreRatingTest(path = "xls/demo.xlsx", sheet = "Calculator", dsUid = "TUID", testRailColumn = "a")
         void testSumOperationEx(HashMap<String, String> args) {
             int actual = Integer.valueOf(args.get("a")) + Integer.valueOf(args.get("b"))
             int expected = Integer.valueOf(args.get("c"))
@@ -34,7 +34,7 @@ class MetaScoreRatingTest implements IAbstractTest {
         }
 
 
-        @Test(MetaScore= "MS1")
+        @Test(MetaScoreRating= "MS1")
         @MethodOwner(owner = "qpsdemo")
         @TestPriority(Priority.P3)
         @TestRailCases(testCasesId = "44")
@@ -57,7 +57,7 @@ class MetaScoreRatingTest implements IAbstractTest {
 
         @Test()
         @MethodOwner(owner = "qpsdemo")
-        @Parameters(value = { "a" "b" "c" })
+        @Parameters(value = { "a" 'b' "c" })
         @TestRailCases(testCasesId = "55")
         void testSubstractOperation(int a, int b, int c) {
             int actual = Integer.valueOf(a) - Integer.valueOf(b)
